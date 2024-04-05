@@ -3,61 +3,23 @@ const IMG_PATH = 'https://image.tmdb.org/t/p/w1280'
 const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="'
 
 const main = document.getElementById('main')
-const form = document.getElementById('form')
-const search = document.getElementById('search')
-console.log(main, form, search)
-
 getMovies(API_URL)
 async function getMovies(url) {
     const res = await fetch(url)
     const data = await res.json()
-console.log(data)
-   showMovies(data.results)
+    console.log(data.results)
+    showMovies(data.results)
 }
 
-async function showMovies(movies) {
+function showMovies(movies) {
     main.innerHTML = ''
     movies.forEach((movie) => {
-        const {title, poster_path, overview , vote_average} = movie
-   
+        const {title, poster_path, vote_average, overview} = movie
    const movieEl = document.createElement('div')
-   movieEl.classList.add('movie')
-
+   movieEl.classList.add('image')
    movieEl.innerHTML = `
-   <img src="${IMG_PATH + poster_path}" alt="${title}" >
-  <div classs"movie-info">
-   <h3>${title}</h3>
-   <span class="${getClassByRate(vote_average)}"></span>
-   </div>
-   <div class="overview">
-   <h3>overview</h3>
-   ${overview}</div>
+   <img src="${IMG_PATH + poster_path}" alt=${title}>
+
    `
-   main.appendChild(movieEl)
     })
-
-
-
 }
-
-function getClassByRate(vote) {
-    if(vote >= 8) {
-        return 'green'
-    } else if(vote >= 5){
-        return 'orange'
-    } else {
-        return 'red'
-    }
-}
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault()
-
-    const searchTerm = search.ariaValueMax
-    if (searchTerm && searchTerm !== ''){
-        getMovies(SEARCH_API + search)
-        search.value =''
-    } else {
-        window.location.reload()
-    }
-})
