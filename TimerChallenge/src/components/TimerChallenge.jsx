@@ -3,12 +3,19 @@ import React, { useState } from 'react'
 function TimerChallenge({title, targetTime}) {
     const [timerStarted, setTimerStared] = useState(false);
 const [timerExpired, setTimerExpired] = useState(false);
-    function handleStart(){
-        setTimeout(() => {
+   
+let timer;
+
+function handleStart(){
+         timer = setTimeout(() => {
             setTimerExpired(true);
 }, targetTime * 1000);
   
 setTimerStared(true);
+}
+
+function handleStop() {
+    clearTimeout(timer);
 }
 
 
@@ -21,13 +28,14 @@ setTimerStared(true);
             {targetTime} second{targetTime > 1 ? 's' : ''}
         </p>
         <p>
-        <button onClick={handleStart}>
+        <button onClick={timerStarted ? handleStop : handleStart}>
             {/* start challenge or stop challenge (useState => 1) */}
             {/* Start Chalenge */}
            {timerStarted ? 'Stop' : 'Start'} Challenge
             </button>
         </p>
-        <p className=''>
+        {/* <p className=''> */}
+        <p className={timerStarted ?  'active' : undefined}>
             {/* className="active"   or className="" */}
             Time is running  / Time inactive
         </p>
