@@ -1,23 +1,22 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import React from 'react'
 
 function StateLogin() {
-    const [playerName, setPlayerName] = useState('')
-    const [submitted, setSunmitted] = useState(false)
+    
+const playerName = useRef();
+const [enterPlayerName, setEnterPlayerName] = useState('Max')
   
-  function handleChange(event) {
-setPlayerName(event.target.value)
-console.log(playerName)
-  }
+ 
 
   function handleSubmitted() {
-setSunmitted(true)
+setEnterPlayerName(playerName.current.value);
+console.log(enterPlayerName)
   }
     return (
    <section>
-    <h2>Welcome {submitted ? playerName : 'unknown enitiy'}</h2>
+    <h2>Welcome {enterPlayerName? enterPlayerName : 'unknown enitiy'}</h2>
    <p>
-    <input type="text" placeholder='enter name' onChange={handleChange} value={playerName} />
+    <input ref={playerName} type="text" placeholder='enter name' />
     <button onClick={handleSubmitted}>Set Name</button>
    </p>
    </section>
