@@ -73,8 +73,8 @@
 // loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", hello)
 
 let promise = new Promise(function(resolve, reject) {
-    alert("Hello")
-    resolve(58)
+    // alert("Hello");
+    resolve(56)
 })
 
 console.log("Hello One")
@@ -83,3 +83,12 @@ setTimeout(function() {
 }, 2000)
 
 console.log("My name is" +  "Hello There")
+console.log(promise)
+
+// const myPromise = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         console.log("hello")
+//       resolve("foo");
+//       console.log("hello end")
+//     }, 3000);
+//   });
